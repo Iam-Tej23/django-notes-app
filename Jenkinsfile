@@ -29,6 +29,7 @@ pipeline {
                 echo 'Deploying the Application'
                 sh 'docker compose down'
                 sh 'docker compose up -d'
+                echo 'Deployment is successful'
             }
         } 
     }
