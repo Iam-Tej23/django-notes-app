@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "tej" }
+    agent any
 
     stages {
         stage('Cloning the code') {
@@ -11,7 +11,7 @@ pipeline {
           stage('Building the code') {
             steps {
                 echo 'Build the code'
-                sh 'docker build -t notes-app:latest .'
+             
             }
         }
             stage('Pushing the code') {
@@ -19,8 +19,8 @@ pipeline {
              echo"Pushing the image to dockerHub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"DOCKER_PASS",usernameVariable:"DOCKER_USER")]){
                 sh "docker login -u ${env.DOCKER_USER} -p ${env.DOCKER_PASS}"
-                sh "docker image tag notes-app:latest ${env.DOCKER_USER}/notes-app:latest"
-                sh "docker push 996tharuntej/notes-app:latest"
+                sh "docker image tag app:latest ${env.DOCKER_USER}/app:latest"
+                sh "docker push 996tharuntej/app:latest"
                 }
             }
         }
